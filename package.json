@@ -2,7 +2,7 @@
   "name": "typo-js",
   "version": "1.0.3",
   "description": "A Hunspell-style spellchecker.",
-  "main": "typo.js",
+  "main": "typo/typo.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/cfinke/Typo.js.git"
