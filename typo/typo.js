@@ -560,14 +560,13 @@ Typo.prototype = {
 
 	_applyRule : function (word, rule) {
     var entries = rule.entries;
-    var applicableAffixes = [];
+    var applicableAffixes = new Map();
 		var newWords = [];
 
 		for (var i = 0, _len = entries.length; i < _len; i++) {
 			var entry = entries[i];
 
 			if (!entry.match || word.match(entry.match)) {
-        applicableAffixes.push(entry);
 				var newWord = word;
 
 				if (entry.remove) {
@@ -580,6 +579,12 @@ Typo.prototype = {
 				else {
 					newWord = entry.add + newWord;
 				}
+
+        const affixDetail = { entry, newWord }
+        const currentAffixes =  applicableAffixes.get(rule)
+          ? [...applicableAffixes.get(rule), affixDetail]
+          : [affixDetail]
+        applicableAffixes.set(rule, currentAffixes);
 
 				newWords.push(newWord);
 
@@ -602,12 +607,10 @@ Typo.prototype = {
 			}
     }
 
-
-    const ruleAndDerivations = { rule, applicableAffixes, derivations: newWords }
     const currentEntry = this.ruleToAffixMap.get(word)
     const newAffixEntry = currentEntry
-      ? currentEntry.concat(ruleAndDerivations)
-      : [ruleAndDerivations]
+      ? currentEntry.concat(applicableAffixes)
+      : [applicableAffixes]
 
     this.ruleToAffixMap.set(word, newAffixEntry);
 
