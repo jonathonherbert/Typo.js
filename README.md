@@ -1,5 +1,7 @@
 Typo.js is a JavaScript spellchecker that uses Hunspell-style dictionaries.
 
+Forked to provide utility methods to illustrate how affixes are applied to word in a dictionary.
+
 Usage
 =====
 
