@@ -324,7 +324,8 @@ Typo.prototype = {
 					var regexToMatch = lineParts[4];
 
 					var entry = {};
-					entry.add = charactersToAdd;
+          entry.add = charactersToAdd;
+          entry.subline = subline;
 
 					if (continuationClasses.length > 0) entry.continuationClasses = continuationClasses;
 
@@ -562,7 +563,6 @@ Typo.prototype = {
     var entries = rule.entries;
     var applicableAffixes = new Map();
 		var newWords = [];
-
 		for (var i = 0, _len = entries.length; i < _len; i++) {
 			var entry = entries[i];
 
