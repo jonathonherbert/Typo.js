@@ -50,7 +50,8 @@ Typo = function (dictionary, affData, wordsData, settings) {
 	this.dictionary = null;
 
   this.rules = {};
-  this.ruleToAffixMap = {};
+  // Why use a map? Well, 'constructor' is always a property of an Object ...
+  this.ruleToAffixMap = new Map();
 	this.dictionaryTable = {};
 
 	this.compoundRules = [];
@@ -603,10 +604,12 @@ Typo.prototype = {
 
 
     const ruleAndDerivations = { rule, applicableAffixes, derivations: newWords }
-
-    this.ruleToAffixMap[word] = this.ruleToAffixMap[word]
-      ? this.ruleToAffixMap[word].concat(ruleAndDerivations)
+    const currentEntry = this.ruleToAffixMap.get(word)
+    const newAffixEntry = currentEntry
+      ? currentEntry.concat(ruleAndDerivations)
       : [ruleAndDerivations]
+
+    this.ruleToAffixMap.set(word, newAffixEntry);
 
 		return newWords;
 	},
