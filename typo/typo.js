@@ -349,7 +349,7 @@ Typo.prototype = {
 					entries.push(entry);
 				}
 
-				rules[ruleCode] = { "type" : ruleType, "combineable" : (combineable == "Y"), "entries" : entries };
+				rules[ruleCode] = { "type" : ruleType, "combineable" : (combineable == "Y"), "entries" : entries, line };
 
 				i += numEntries;
 			}
